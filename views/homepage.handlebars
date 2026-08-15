@@ -1,0 +1,68 @@
+<section class="page-header">
+  <div>
+    <h2 class="page-title">Todo List</h2>
+    <p class="page-subtitle">
+      Powered by Postgres. This UI will evolve into a Todo List next.
+    </p>
+  </div>
+
+  <div class="page-actions">
+    <button class="btn btn--primary" disabled title="Coming soon">
+      + Add User
+    </button>
+    <button class="btn" disabled title="Coming soon">
+      Export
+    </button>
+  </div>
+</section>
+
+<section class="card">
+  <div class="card__header">
+    <h3 class="card__title">Registered Users</h3>
+    <span class="badge">{{users.length}} total</span>
+  </div>
+
+  <div class="list">
+    {{#each users as |user|}}
+      <div class="list__row">
+        <div class="list__left">
+          <span class="emoji" aria-hidden="true">{{{get_emoji}}}</span>
+
+          <div>
+            <div class="list__title">{{user.name}}</div>
+            <div class="list__meta">
+              <span class="muted">User</span>
+              <span class="muted">•</span>
+              <span class="muted">ID: {{user.id}}</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="list__right">
+          <a class="email" href="mailto:{{user.email}}">{{user.email}}</a>
+          <button
+            class="icon-btn"
+            disabled
+            title="Coming soon"
+            aria-label="More actions"
+          >
+            ⋯
+          </button>
+        </div>
+      </div>
+    {{/each}}
+  </div>
+</section>
+
+<section class="hint">
+  <h4 class="hint__title">Next step: Todo List MVP</h4>
+  <ul class="hint__list">
+    <li>Create a
+      <code>todos</code>
+      table linked to
+      <code>users</code>
+      (user_id).</li>
+    <li>Show each user’s todos under their row.</li>
+    <li>Add a form + POST route to create a todo.</li>
+  </ul>
+</section>

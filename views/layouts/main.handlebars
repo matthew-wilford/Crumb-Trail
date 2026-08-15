@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{{#if title}}{{title}}{{else}}Todo List{{/if}}</title>
+
+  <link rel="stylesheet" href="/css/jass.css" />
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+
+<body>
+  <header class="topbar">
+    <div class="topbar__inner container"> 
+      <div class="brand">
+        <span class="brand__logo" aria-hidden="true">✅</span>
+        <div class="brand__text">
+          <h1 class="brand__title">{{#if appName}}{{appName}}{{else}}Todo List{{/if}}</h1>
+          <p class="brand__subtitle">MVC + Handlebars • future Todo List</p>
+        </div>
+      </div>
+
+      <nav class="nav">
+        <a class="nav__link {{#if isHome}}is-active{{/if}}" href="/">Home</a>
+        <a class="nav__link is-disabled" href="#" aria-disabled="true" title="Coming soon">Todos</a>
+        <a class="nav__link is-disabled" href="#" aria-disabled="true" title="Coming soon">Login</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    {{{body}}}
+  </main>
+
+  <footer class="footer">
+    <div class="container footer__inner">
+      <span>© {{year}} {{#if appName}}{{appName}}{{else}}Todo List{{/if}}</span>
+      <span class="footer__dot">•</span>
+      <span class="muted">Built with Express + Handlebars</span>
+    </div>
+  </footer>
+</body>
+</html>
