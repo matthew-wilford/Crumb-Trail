@@ -1,4 +1,6 @@
 module.exports = {
+  json: (context) => JSON.stringify(context),
+
   get_emoji: () => {
     const randomNum = Math.random();
     let book = "📗";

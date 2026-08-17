@@ -1,0 +1,177 @@
+{{! Split-screen dashboard for CrumbTrail }}
+<div class="container-fluid py-4">
+  <div class="row g-4">
+    <!-- Left column: forms -->
+    <div class="col-md-4">
+      <div class="card mb-3">
+        <div class="card-body">
+          <h5 class="card-title">Add Restaurant</h5>
+          <form id="restaurant-form">
+            <div class="mb-2">
+              <label for="r-name" class="form-label">Name</label>
+              <input id="r-name" name="name" class="form-control" required />
+            </div>
+            <div class="mb-2">
+              <label for="r-cuisine" class="form-label">Cuisine</label>
+              <input
+                id="r-cuisine"
+                name="cuisine"
+                class="form-control"
+                required
+              />
+            </div>
+            <div class="row">
+              <div class="col-6 mb-2">
+                <label for="r-lat" class="form-label">Latitude</label>
+                <input
+                  id="r-lat"
+                  name="latitude"
+                  class="form-control"
+                  type="number"
+                  step="any"
+                  min="-90"
+                  max="90"
+                  required
+                />
+              </div>
+              <div class="col-6 mb-2">
+                <label for="r-lng" class="form-label">Longitude</label>
+                <input
+                  id="r-lng"
+                  name="longitude"
+                  class="form-control"
+                  type="number"
+                  step="any"
+                  min="-180"
+                  max="180"
+                  required
+                />
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary mt-2">Create Restaurant</button>
+          </form>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Add Review</h5>
+          <form id="review-form">
+            <div class="mb-2">
+              <label
+                for="review-restaurant"
+                class="form-label"
+              >Restaurant</label>
+              <select
+                id="review-restaurant"
+                name="restaurant_id"
+                class="form-select"
+                required
+              >
+                <option value="" disabled selected>Select a restaurant</option>
+                {{#each restaurants}}
+                  <option value="{{this.id}}">{{this.name}}</option>
+                {{/each}}
+              </select>
+            </div>
+            <div class="mb-2">
+              <label for="visit-date" class="form-label">Visit Date</label>
+              <input
+                id="visit-date"
+                name="visit_date"
+                type="date"
+                class="form-control"
+              />
+            </div>
+            <div class="mb-2">
+              <label for="rating" class="form-label">Rating</label>
+              <select id="rating" name="rating" class="form-select" required>
+                <option value="" disabled selected>Choose rating</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+              </select>
+            </div>
+            <div class="mb-2">
+              <label for="review-text" class="form-label">Review</label>
+              <textarea
+                id="review-text"
+                name="review_text"
+                class="form-control"
+                rows="3"
+              ></textarea>
+            </div>
+            <button type="submit" class="btn btn-success mt-2">Submit Review</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right column: map + timeline -->
+    <div class="col-md-8">
+      <div class="card mb-3">
+        <div class="card-body">
+          <div id="map" style="height:400px; width:100%;"></div>
+        </div>
+      </div>
+
+      <div id="timeline">
+        {{#each restaurants}}
+          <div class="card mb-3" data-id="{{this.id}}">
+            <div
+              class="card-header d-flex justify-content-between align-items-center"
+            >
+              <div>
+                <strong>{{this.name}}</strong>
+                <span class="badge bg-secondary ms-2">{{this.cuisine}}</span>
+              </div>
+              <button
+                type="button"
+                class="btn btn-sm btn-outline-danger delete-restaurant"
+                data-id="{{this.id}}"
+              >✕</button>
+            </div>
+            <div class="card-body">
+              {{#if this.Reviews}}
+                <ul class="list-group list-group-flush">
+                  {{#each this.Reviews}}
+                    <li class="list-group-item small">
+                      <div><strong>Rating:</strong> {{this.rating}} / 5</div>
+                      {{#if this.visit_date}}<div><strong>Date:</strong>
+                          {{this.visit_date}}</div>{{/if}}
+                      {{#if this.review_text}}<div
+                        >{{this.review_text}}</div>{{/if}}
+                    </li>
+                  {{/each}}
+                </ul>
+              {{else if this.reviews}}
+                <ul class="list-group list-group-flush">
+                  {{#each this.reviews}}
+                    <li class="list-group-item small">
+                      <div><strong>Rating:</strong> {{this.rating}} / 5</div>
+                      {{#if this.visit_date}}<div><strong>Date:</strong>
+                          {{this.visit_date}}</div>{{/if}}
+                      {{#if this.review_text}}<div
+                        >{{this.review_text}}</div>{{/if}}
+                    </li>
+                  {{/each}}
+                </ul>
+              {{else}}
+                <p class="text-muted small">No reviews yet.</p>
+              {{/if}}
+            </div>
+          </div>
+        {{/each}}
+      </div>
+    </div>
+  </div>
+
+  <!-- Inject restaurants JSON for client-side scripts. {{{json ...}}} stringifies the
+       array server-side; without the helper, Handlebars would call .toString() on the
+       array/objects and produce invalid JSON like "[object Object]". -->
+  <script id="map-data" type="application/json">{{{json restaurants}}}</script>
+</div>
+
+<script src="/js/dashboard.js"></script>

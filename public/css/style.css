@@ -33,7 +33,7 @@ body {
 .topbar {
   position: sticky;
   top: 0;
-  z-index: 10;
+  z-index: 1100;
   backdrop-filter: blur(12px);
   background: rgba(11, 16, 32, 0.7);
   border-bottom: 1px solid var(--border);
@@ -295,6 +295,11 @@ body {
 
 .footer__dot {
   opacity: 0.7;
+}
+
+.card-title,
+.form-label {
+  color: var(--text);
 }
 
 /* Hint panel */

@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>{{#if title}}{{title}}{{else}}Todo List{{/if}}</title>
 
+  <link rel="stylesheet" href="/vendor/bootstrap/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="/vendor/leaflet/leaflet.css" />
   <link rel="stylesheet" href="/css/jass.css" />
   <link rel="stylesheet" href="/css/style.css" />
 </head>
@@ -39,5 +41,11 @@
       <span class="muted">Built with Express + Handlebars</span>
     </div>
   </footer>
+
+  <!-- Bootstrap's JS bundle (incl. Popper), for interactive Bootstrap components -->
+  <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <!-- Leaflet must be loaded before dashboard.js runs, since dashboard.js expects the
+       global `L` object to exist as soon as its DOMContentLoaded handler fires -->
+  <script src="/vendor/leaflet/leaflet.js"></script>
 </body>
 </html>
